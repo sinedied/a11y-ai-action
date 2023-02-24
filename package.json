@@ -1,7 +1,7 @@
 {
   "name": "a11y-ai-action",
   "version": "1.0.0",
-  "description": "Experimental GitHub Action to automatically detect accessibility issues in web pages and provide suggestions for fixing them",
+  "description": "Experimental GitHub Action to automatically detect accessibility issues in web pages using OpenAI and provide suggestions for fixing them",
   "type": "module",
   "repository": {
     "type": "git",
