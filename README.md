@@ -10,14 +10,19 @@
 
 See [action.yml](action.yml).
 
+Example workflow:
 ```yaml
 steps:
-- uses: actions/checkout@v2
+- uses: actions/checkout@v3
 - name: Generate accessibility suggestions report
   uses: sinedied/a11y-ai-action@v1
   with:
     # One or more glob patterns of files to include
     files: '**/*.html'
+- uses: actions/upload-artifact@v3
+  with:
+    name: A11y Report
+    path: report/a11y-report.html
 ```
 
 <!-- You can use [this template repository](https://github.com/sinedied/a11y-ai-action-template) as an example setup. -->
