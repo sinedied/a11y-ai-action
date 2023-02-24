@@ -1,21 +1,22 @@
 import core from '@actions/core';
+import glob from 'fast-glob';
 import { report, reportOutputFile } from 'a11y-ai';
 
 async function run() {
   try {
-    // const githubToken = core.getInput('github_token');
+    // Const githubToken = core.getInput('github_token');
     const filesGlob = core.getInput('files');
 
-    // core.setSecret(githubToken);
+    // Core.setSecret(githubToken);
 
     core.debug(
       JSON.stringify({
-        // githubToken,
+        // GithubToken,
         filesGlob
       })
     );
 
-    const filesOrGlobs = options._.length > 0 ? options._ : ['**/*.html'];
+    const filesOrGlobs = filesGlob ? [filesGlob] : ['**/*.html'];
     const files = await glob(filesOrGlobs, {
       dot: true,
       ignore: ['**/node_modules/**', reportOutputFile]
