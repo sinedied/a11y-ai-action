@@ -16,7 +16,8 @@ async function run() {
       })
     );
 
-    const filesOrGlobs = filesGlob ? [filesGlob] : ['**/*.html'];
+    let filesOrGlobs = Array.isArray(filesGlob) ? filesGlob : [filesGlob];
+    filesOrGlobs = filesOrGlobs.length === 0 || filesOrGlobs[0] === '' ? ['**/*.html'] : filesOrGlobs;
     const files = await glob(filesOrGlobs, {
       dot: true,
       ignore: ['**/node_modules/**', reportOutputFile]
