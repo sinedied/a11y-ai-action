@@ -1,0 +1,67 @@
+{
+  "name": "a11y-ai-action",
+  "version": "0.1.0",
+  "description": "Experimental GitHub Action to automatically detect accessibility issues in web pages and provide suggestions for fixing them",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sinedied/a11y-ai-action.git"
+  },
+  "private": true,
+  "exports": "./dist/index.js",
+  "scripts": {
+    "lint": "xo",
+    "lint:fix": "xo --fix",
+    "build": "rm -rf dist && node scripts/build.js",
+    "test": "xo",
+    "commit:build": "git add dist && git commit -m \"chore: update build\" && git push",
+    "tag": "git tag -d v1 && git push --delete origin v1 && git tag -a v1 -m 'v1' && git push --tags",
+    "release": "npm run -s build && npm run -s commit:build && npm run -s tag"
+  },
+  "keywords": [
+    "github",
+    "actions",
+    "accessibility",
+    "openai",
+    "cli",
+    "fix",
+    "ai",
+    "reports"
+  ],
+  "author": {
+    "name": "Yohan Lasorsa",
+    "url": "https://twitter.com/sinedied"
+  },
+  "homepage": "https://github.com/sinedied/a11y-ai-action",
+  "bugs": {
+    "url": "https://github.com/sinedied/a11y-ai-action/issues"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@actions/core": "^1.9.1",
+    "@actions/exec": "^1.0.3",
+    "@actions/http-client": "^2.0.1",
+    "a11y-ai": "^0.2.0",
+    "fast-glob": "^3.2.12"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "^0.36.1",
+    "xo": "^0.53.1"
+  },
+  "xo": {
+    "space": true,
+    "prettier": true,
+    "envs": [
+      "node"
+    ]
+  },
+  "prettier": {
+    "trailingComma": "none",
+    "bracketSpacing": true,
+    "endOfLine": "auto"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=7.0.0"
+  }
+}
