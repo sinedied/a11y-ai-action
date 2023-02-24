@@ -1,6 +1,7 @@
+import path from 'node:path';
 import core from '@actions/core';
 import glob from 'fast-glob';
-import { report, reportOutputFile } from 'a11y-ai';
+import { report, reportOutputFilename, generateMarkdownReport } from 'a11y-ai';
 
 async function run() {
   try {
@@ -20,13 +21,22 @@ async function run() {
     filesOrGlobs = filesOrGlobs.length === 0 || filesOrGlobs[0] === '' ? ['**/*.html'] : filesOrGlobs;
     const files = await glob(filesOrGlobs, {
       dot: true,
-      ignore: ['**/node_modules/**', reportOutputFile]
+      ignore: ['**/node_modules/**', `${reportOutputFilename}.*`]
     });
 
-    await report(files);
+    const result = await report(files);
+    const html = result.contents;
+    const md = await generateMarkdownReport(result.reports);
+    const reportPath = path.dirname(result.outputFile);
 
-    core.debug('Output report file: ' + reportOutputFile);
-    core.setOutput('report_file', reportOutputFile);
+    core.debug('Output report path: ' + reportPath);
+    core.setOutput('report_path', reportPath);
+
+    core.debug('Output report html: ' + html);
+    core.setOutput('report_html', html);
+
+    core.debug('Output report markdown: ' + md);
+    core.setOutput('report_md', md);
   } catch (error) {
     core.setFailed(error.toString());
   }

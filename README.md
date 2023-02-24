@@ -12,20 +12,34 @@ See [action.yml](action.yml).
 
 Example workflow:
 ```yaml
+permissions:
+  pull-requests: write
+
 steps:
 - uses: actions/checkout@v3
-- name: Generate accessibility suggestions report
+
+- name: Generate a11y report
   uses: sinedied/a11y-ai-action@v1
   with:
     # One or more glob patterns of files to include
     files: '**/*.html'
+
+# Add a comment with the report if it's a pull request
+- uses: actions-ecosystem/action-create-comment@v1
+  if: ${{ github.event_name == 'pull_request' }}
+  with:
+    github_token: ${{ secrets.GITHUB_TOKEN }}
+    body: |
+      ${{ steps.a11y_ai.outputs.report_md }}
+
+# Upload the report as an artifact
 - uses: actions/upload-artifact@v3
   with:
     name: A11y Report
-    path: report/a11y-report.html
+    path: ${{ steps.a11y_ai.outputs.report_path }}
 ```
 
-<!-- You can use [this template repository](https://github.com/sinedied/a11y-ai-action-template) as an example setup. -->
+You can a full example setup in [this repository](https://github.com/sinedied/a11y-ai/blob/main/.github/workflows/action.yml).
 
 ## Notes
 
