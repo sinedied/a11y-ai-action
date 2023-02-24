@@ -41,7 +41,7 @@
     "@actions/core": "^1.9.1",
     "@actions/exec": "^1.0.3",
     "@actions/http-client": "^2.0.1",
-    "a11y-ai": "^0.2.0",
+    "a11y-ai": "^0.2.1",
     "fast-glob": "^3.2.12"
   },
   "devDependencies": {
