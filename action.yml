@@ -1,4 +1,4 @@
-name: 'A11y AI'
+name: 'A11y AI Action'
 description: 'Experimental tool to automatically detect accessibility issues in web pages and provide suggestions for fixing them.'
 author: 'sinedied'
 branding:
